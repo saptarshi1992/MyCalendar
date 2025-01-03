@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Meeting Scheduler</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <h2 class="text-center">Schedule a Meeting</h2>
+            <form id="meetingForm">
+                <div class="form-group">
+                    <label for="title">Meeting Title:</label>
+                    <input type="text" id="title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="start">Start Time:</label>
+                    <input type="datetime-local" id="start" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="end">End Time:</label>
+                    <input type="datetime-local" id="end" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Meeting</button>
+            </form>
+            <br>
+            <a href="my_calendar.html" class="btn btn-success">View My Calendar</a>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#meetingForm').on('submit', function (e) {
+                    e.preventDefault();
+                    const title = $('#title').val();
+                    const start = $('#start').val();
+                    const end = $('#end').val();
+                    const meetings = JSON.parse(localStorage.getItem('meetings')) || [];
+                    meetings.push({ title, start, end, color: 'yellow', textColor: 'black' });
+                    localStorage.setItem('meetings', JSON.stringify(meetings));
+
+                    alert('Meeting Saved!');
+                    $('#meetingForm')[0].reset();
+                });
+            });
+        </script>
+    </body>
+
+</html>
